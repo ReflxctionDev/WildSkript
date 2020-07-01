@@ -13,7 +13,7 @@ public class ExprName extends SimpleExpression<String> {
 
     protected String[] get(Event event) {
 
-        String name = (String) this.name.getSingle(event);
+        String name = this.name.getSingle(event);
         if (name == null) return null;
 
         return new String[]{Inventories.get(name).getName()};

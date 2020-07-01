@@ -10,6 +10,8 @@ import org.bukkit.event.Event;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
+import java.util.Objects;
+
 public class EffPlugin extends Effect {
 
     private int matchedPattern;
@@ -25,7 +27,7 @@ public class EffPlugin extends Effect {
             Loader.loadPlugin(s);
         } else if (matchedPattern == 1) {
             Plugin plugin = pm.getPlugin(s);
-            pm.disablePlugin(plugin);
+            pm.disablePlugin(Objects.requireNonNull(plugin));
         }
     }
 

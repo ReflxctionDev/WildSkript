@@ -19,11 +19,9 @@ public class CondIsInID extends Condition {
         String id = this.id.getSingle(event);
 
         if (RegionsUtils.get(id).isIn(loc)) {
-            if (isNegated()) return false;
-            return true;
+            return !isNegated();
         }
-        if (isNegated()) return true;
-        return false;
+        return isNegated();
     }
 
     public String toString(Event event, boolean b) {

@@ -7,10 +7,7 @@ import java.net.Proxy;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.zip.GZIPOutputStream;
 
 public class MetricsLite {
@@ -51,7 +48,7 @@ public class MetricsLite {
         synchronized (optOutLock) {
             if (isOptOut()) return false;
             if (timer != null) return true;
-            timer.schedule(new TimerTask() {
+            Objects.requireNonNull(timer).schedule(new TimerTask() {
                 private boolean firstPost = true;
 
                 public void run() {
@@ -64,7 +61,7 @@ public class MetricsLite {
                         }
                         postPlugin(!firstPost);
                         firstPost = false;
-                    } catch (IOException e) {
+                    } catch (IOException ignored) {
                     }
                 }
             }, 0, PING_INTERVAL * 1200);
@@ -185,7 +182,6 @@ public class MetricsLite {
                 isValueNumeric = true;
             }
         } catch (NumberFormatException e) {
-            isValueNumeric = false;
         }
         if (json.charAt(json.length() - 1) != '{') json.append(',');
         json.append(escapeJSON(key));
@@ -220,7 +216,7 @@ public class MetricsLite {
                 default:
                     if (chr < ' ') {
                         String t = "000" + Integer.toHexString(chr);
-                        builder.append("\\u" + t.substring(t.length() - 4));
+                        builder.append("\\u").append(t.substring(t.length() - 4));
                     } else builder.append(chr);
                     break;
             }

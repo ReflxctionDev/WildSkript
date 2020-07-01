@@ -13,7 +13,7 @@ public class ExprLore extends SimpleExpression<String> {
     private Expression<Number> slot;
 
     protected String[] get(Event event) {
-        String name = (String) this.name.getSingle(event);
+        String name = this.name.getSingle(event);
         Number slot = this.slot.getSingle(event);
         if (name == null) return null;
         int i = slot.intValue();

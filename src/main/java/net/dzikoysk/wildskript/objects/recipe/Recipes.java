@@ -36,24 +36,14 @@ public class Recipes {
         while (this.register) this.unregister();
         ShapedRecipe recipe = new ShapedRecipe(this.result);
         recipe.shape("123", "456", "789");
-        this.patcher();
-        for (Integer i = 1; i < 10; i++) {
+        for (int i = 1; i < 10; i++) {
             if (this.ingredients[i - 1] != null && !(this.ingredients[i - 1].getType() == Material.AIR)) {
-                recipe.setIngredient((i.toString()).charAt(0), this.ingredients[i - 1].getType());
+                recipe.setIngredient((Integer.toString(i)).charAt(0), this.ingredients[i - 1].getType());
             }
         }
         this.recipe = recipe;
         Bukkit.addRecipe(recipe);
         this.register = true;
-    }
-
-    public void patcher() {
-        for (Integer i = 0; i < 9; i++) {
-            if (this.ingredients[i] != null) {
-                Material m = this.ingredients[i].getType();
-                if (m == Material.REDSTONE_TORCH_OFF) this.ingredients[i].setType(Material.REDSTONE_TORCH_ON);
-            }
-        }
     }
 
     public void unregister() {

@@ -18,12 +18,10 @@ public class CondIsTamed extends Condition {
         if (e == null) return false;
         if (e instanceof Tameable) {
             if (((Tameable) e).isTamed()) {
-                if (matchedPattern == 1) return false;
-                return true;
+                return matchedPattern != 1;
             }
         }
-        if (matchedPattern == 1) return true;
-        return false;
+        return matchedPattern == 1;
     }
 
     public String toString(Event event, boolean b) {

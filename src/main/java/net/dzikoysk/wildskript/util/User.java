@@ -6,6 +6,7 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class User {
 
@@ -35,7 +36,7 @@ public class User {
 
     public Scoreboard getScoreboard() {
         if (scoreboard == null) {
-            this.scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+            this.scoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
             this.player.setScoreboard(scoreboard);
         }
         return scoreboard;

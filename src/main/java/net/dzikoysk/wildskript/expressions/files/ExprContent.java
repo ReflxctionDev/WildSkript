@@ -22,7 +22,7 @@ public class ExprContent extends SimpleExpression<String> {
         String f = this.file.getSingle(event);
         if (f == null) return null;
         File file = new File(f.replaceAll("/", Matcher.quoteReplacement(File.separator)));
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         try {
             if (!file.exists()) {
                 file.getParentFile().mkdirs();

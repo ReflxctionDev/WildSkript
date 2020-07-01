@@ -15,9 +15,9 @@ public class EffCommand extends Effect {
 
     protected void execute(Event event) {
 
-        String name = (String) this.name.getSingle(event);
-        Number slot = (Number) this.slot.getSingle(event);
-        String command = (String) this.command.getSingle(event);
+        String name = this.name.getSingle(event);
+        Number slot = this.slot.getSingle(event);
+        String command = this.command.getSingle(event);
         if (name == null || command == null || slot == null) return;
 
         int i = slot.intValue();

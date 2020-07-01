@@ -12,7 +12,7 @@ public class ExprRow extends SimpleExpression<Integer> {
     private Expression<String> name;
 
     protected Integer[] get(Event event) {
-        String name = (String) this.name.getSingle(event);
+        String name = this.name.getSingle(event);
         if (name == null) return null;
         return new Integer[]{Inventories.get(name).getRow()};
     }

@@ -1,8 +1,8 @@
 package net.dzikoysk.wildskript.collections.functions;
 
 import org.bukkit.Bukkit;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class Function {
 
     private static final List<FunctionEvent> functions = new ArrayList<>();
 
-    @Nullable
+    @NotNull
     public static FunctionEvent call(String name, Object[] args) {
         FunctionEvent custom = new FunctionEvent(name, args);
         Bukkit.getServer().getPluginManager().callEvent(custom);

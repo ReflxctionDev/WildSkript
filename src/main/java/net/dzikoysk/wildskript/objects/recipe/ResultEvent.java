@@ -12,6 +12,8 @@ import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Objects;
+
 public class ResultEvent implements Listener {
 
     @EventHandler
@@ -20,7 +22,8 @@ public class ResultEvent implements Listener {
         if (event.getInventory() instanceof CraftingInventory) {
             CraftingInventory ci = (CraftingInventory) event.getInventory();
             if (event.getSlotType() == InventoryType.SlotType.RESULT) {
-                if (event.getCurrentItem().getType() == null || event.getCurrentItem().getType() == Material.AIR)
+                Objects.requireNonNull(event.getCurrentItem()).getType();
+                if (event.getCurrentItem().getType() == Material.AIR)
                     return;
                 ItemStack result = ci.getResult();
                 for (Recipes r : Recipes.list) {

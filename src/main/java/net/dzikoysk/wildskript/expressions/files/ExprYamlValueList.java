@@ -19,8 +19,8 @@ public class ExprYamlValueList extends SimpleExpression<String> {
     private Expression<String> file;
 
     protected String[] get(Event event) {
-        String v = (String) this.value.getSingle(event);
-        String f = (String) this.file.getSingle(event);
+        String v = this.value.getSingle(event);
+        String f = this.file.getSingle(event);
         if ((v == null) || (f == null)) return null;
 
         File file = new File(f.replaceAll("/", Matcher.quoteReplacement(File.separator)));
@@ -28,7 +28,7 @@ public class ExprYamlValueList extends SimpleExpression<String> {
             try {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
-            } catch (IOException e) {
+            } catch (IOException ignored) {
             }
         }
         YamlConfiguration yml = YamlConfiguration.loadConfiguration(file);

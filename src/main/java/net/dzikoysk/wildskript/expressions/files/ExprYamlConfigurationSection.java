@@ -20,23 +20,21 @@ public class ExprYamlConfigurationSection extends SimpleExpression<String> {
     private Expression<String> file;
 
     protected String[] get(Event event) {
-        String k = (String) this.key.getSingle(event);
-        String f = (String) this.file.getSingle(event);
+        String k = this.key.getSingle(event);
+        String f = this.file.getSingle(event);
         if ((k == null) || (f == null)) return null;
         File file = new File(f.replaceAll("/", Matcher.quoteReplacement(File.separator)));
         if (!file.exists()) {
             try {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
-            } catch (IOException e) {
+            } catch (IOException ignored) {
             }
         }
         YamlConfiguration yml = YamlConfiguration.loadConfiguration(file);
-        if (yml == null) return null;
         ConfigurationSection cs = yml.getConfigurationSection(k);
         if (cs == null) return null;
-        ArrayList<String> list = new ArrayList<String>();
-        for (String key : cs.getKeys(false)) list.add(key);
+        ArrayList<String> list = new ArrayList<>(cs.getKeys(false));
         String[] s = new String[list.size()];
         return list.toArray(s);
     }

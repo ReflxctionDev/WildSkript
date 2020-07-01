@@ -13,7 +13,7 @@ public class EffUpdate extends Effect {
 
     protected void execute(Event event) {
 
-        String name = (String) this.name.getSingle(event);
+        String name = this.name.getSingle(event);
         if (name == null) return;
 
         Inventories.get(name).updateInv();

@@ -14,8 +14,8 @@ public class EffRemoveCommand extends Effect {
 
     protected void execute(Event event) {
 
-        String name = (String) this.name.getSingle(event);
-        Number slot = (Number) this.slot.getSingle(event);
+        String name = this.name.getSingle(event);
+        Number slot = this.slot.getSingle(event);
         if (name == null || slot == null) return;
 
         int i = slot.intValue();

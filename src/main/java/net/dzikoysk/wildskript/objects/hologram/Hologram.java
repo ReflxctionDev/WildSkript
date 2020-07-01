@@ -8,9 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Hologram {
 
@@ -37,25 +35,25 @@ public class Hologram {
 
     public void change(String[] lines) {
         this.lines.clear();
-        if (showing == true) {
+        if (showing) {
             try {
                 destroy();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            for (String s : lines) this.lines.add(s);
+            Collections.addAll(this.lines, lines);
             if (this.location != null) show(this.location);
             return;
         }
-        for (String s : lines) this.lines.add(s);
+        Collections.addAll(this.lines, lines);
     }
 
     public void show(Location loc) {
-        if (showing == true) return;
+        if (showing) return;
         if (this.lines == null) return;
-        Location first = loc.clone().add(0, (this.lines.size() / 2) * distance, 0);
-        for (int i = 0; i < this.lines.size(); i++) {
-            ids.addAll(showLine(first.clone(), this.lines.get(i)));
+        Location first = loc.clone().add(0, ((float) (this.lines.size() / 2)) * distance, 0);
+        for (String line : this.lines) {
+            ids.addAll(Objects.requireNonNull(showLine(first.clone(), line)));
             first.subtract(0, distance, 0);
         }
         showing = true;
@@ -77,7 +75,7 @@ public class Hologram {
     }
 
     public void destroy() throws Exception {
-        if (showing == false) return;
+        if (!showing) return;
         int[] ints = new int[ids.size()];
         for (int j = 0; j < ints.length; j++) if (j != 0) ints[j] = ids.get(j);
         Class<?> packetDestroy = ReflectionUtils.getCraftClass("PacketPlayOutEntityDestroy");
@@ -99,23 +97,23 @@ public class Hologram {
         try {
             Object world = ReflectionUtils.getHandle(loc.getWorld());
             Object skull = EntityWitherSkull.getConstructor(ReflectionUtils.getCraftClass("World")).newInstance(world);
-            ReflectionUtils.getMethod(EntityWitherSkull, "setLocation", double.class, double.class, double.class, float.class, float.class).invoke(skull, loc.getX(), loc.getY() + 1 + 55, loc.getZ(), 0, 0);
+            Objects.requireNonNull(ReflectionUtils.getMethod(EntityWitherSkull, "setLocation", double.class, double.class, double.class, float.class, float.class)).invoke(skull, loc.getX(), loc.getY() + 1 + 55, loc.getZ(), 0, 0);
             Object skull_packet = packetOnlyClass.getConstructor(new Class<?>[]{Entity, int.class}).newInstance(skull, 64);
 
             Object horse = EntityHorse.getConstructor(ReflectionUtils.getCraftClass("World")).newInstance(world);
-            ReflectionUtils.getMethod(EntityHorse, "setLocation", double.class, double.class, double.class, float.class, float.class).invoke(horse, loc.getX(), loc.getY() + 55, loc.getZ(), 0, 0);
-            ReflectionUtils.getMethod(EntityHorse, "setAge", int.class).invoke(horse, -1700000);
-            ReflectionUtils.getMethod(EntityHorse, "setCustomName", String.class).invoke(horse, text);
-            ReflectionUtils.getMethod(EntityHorse, "setCustomNameVisible", boolean.class).invoke(horse, true);
+            Objects.requireNonNull(ReflectionUtils.getMethod(EntityHorse, "setLocation", double.class, double.class, double.class, float.class, float.class)).invoke(horse, loc.getX(), loc.getY() + 55, loc.getZ(), 0, 0);
+            Objects.requireNonNull(ReflectionUtils.getMethod(EntityHorse, "setAge", int.class)).invoke(horse, -1700000);
+            Objects.requireNonNull(ReflectionUtils.getMethod(EntityHorse, "setCustomName", String.class)).invoke(horse, text);
+            Objects.requireNonNull(ReflectionUtils.getMethod(EntityHorse, "setCustomNameVisible", boolean.class)).invoke(horse, true);
             Object packedt = packetLivingClass.getConstructor(new Class<?>[]{EntityLiving}).newInstance(horse);
-            for (Player player : loc.getWorld().getPlayers()) {
+            for (Player player : Objects.requireNonNull(loc.getWorld()).getPlayers()) {
                 PacketUtils.sendPacket(player, packedt);
                 PacketUtils.sendPacket(player, skull_packet);
                 Object pa = packetAttachClass.getConstructor(new Class<?>[]{int.class, Entity, Entity}).newInstance(0, horse, skull);
                 PacketUtils.sendPacket(player, pa);
             }
-            int sid = (int) ReflectionUtils.getMethod(EntityWitherSkull, "getId").invoke(skull);
-            int hid = (int) ReflectionUtils.getMethod(EntityHorse, "getId").invoke(horse);
+            int sid = (int) Objects.requireNonNull(ReflectionUtils.getMethod(EntityWitherSkull, "getId")).invoke(skull);
+            int hid = (int) Objects.requireNonNull(ReflectionUtils.getMethod(EntityHorse, "getId")).invoke(horse);
             return Arrays.asList(sid, hid);
         } catch (Exception e) {
             e.printStackTrace();

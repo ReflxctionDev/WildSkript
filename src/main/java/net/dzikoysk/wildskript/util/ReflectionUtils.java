@@ -6,6 +6,7 @@ import org.bukkit.entity.Entity;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 public class ReflectionUtils {
 
@@ -22,7 +23,7 @@ public class ReflectionUtils {
 
     public static Object getHandle(Entity entity) {
         try {
-            return getMethod(entity.getClass(), "getHandle").invoke(entity);
+            return Objects.requireNonNull(getMethod(entity.getClass(), "getHandle")).invoke(entity);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -31,7 +32,7 @@ public class ReflectionUtils {
 
     public static Object getHandle(World world) {
         try {
-            return getMethod(world.getClass(), "getHandle").invoke(world);
+            return Objects.requireNonNull(getMethod(world.getClass(), "getHandle")).invoke(world);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

@@ -3,11 +3,8 @@ package net.dzikoysk.wildskript.util.doc;
 import net.dzikoysk.wildskript.WildSkript;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Scanner;
 
 public class Documentation {
 
@@ -56,8 +53,6 @@ public class Documentation {
                 break;
             case DESC:
                 desc.add(e);
-                break;
-            case NO_DOC:
                 break;
             default:
                 break;
@@ -122,12 +117,12 @@ public class Documentation {
     private static String singleList(List<Element> list) {
         InputStream is = resource("doc/single/list.txt");
         String template = isS(is);
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
 
         Collections.sort(list);
         for (Element e : list) {
             String name = e.getName();
-            sb.append("<a href=" + '"' + "#" + name + '"' + " class=" + '"' + "list-b" + '"' + ">" + name + "</a>");
+            sb.append("<a href=" + '"' + "#").append(name).append('"').append(" class=").append('"').append("list-b").append('"').append(">").append(name).append("</a>");
         }
         sb.append(template);
 
@@ -149,7 +144,7 @@ public class Documentation {
                     .replace("{EXAMPLE}", e.getExample());
             ptr.add(b);
         }
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         for (String s : ptr) sb.append(s);
         return sb.toString();
     }
@@ -159,13 +154,13 @@ public class Documentation {
     private static String multipleHead(Type type, String title) {
         InputStream is = resource("doc/multiple/header.txt");
         String s = isS(is);
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         if (type == Type.COLLECTION)
             for (String name : collections.keySet())
-                sb.append("<a href=" + '"' + "./" + name + ".html" + '"' + " class=" + '"' + "menu-link" + '"' + '>' + name + " </a> \n");
+                sb.append("<a href=" + '"' + "./").append(name).append(".html").append('"').append(" class=").append('"').append("menu-link").append('"').append('>').append(name).append(" </a> \n");
         else if (type == Type.OBJECT)
             for (String name : objects.keySet())
-                sb.append("<a href=" + '"' + "./" + name + ".html" + '"' + " class=" + '"' + "menu-link" + '"' + '>' + name + " </a> \n");
+                sb.append("<a href=" + '"' + "./").append(name).append(".html").append('"').append(" class=").append('"').append("menu-link").append('"').append('>').append(name).append(" </a> \n");
         String head = s
                 .replace("{TITLE}", title)
                 .replace("{LIST}", sb.toString());
@@ -176,17 +171,17 @@ public class Documentation {
         InputStream is = resource("doc/multiple/body.txt");
         String tmp = isS(is);
 
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         int i = 0;
         for (Element e : es) {
-            if (i == 0) sb.append(e.getDesc() + " \n" + e.getExample());
-            else sb.append("\n \n" + e.getDesc() + " \n" + e.getExample());
+            if (i == 0) sb.append(e.getDesc()).append(" \n").append(e.getExample());
+            else sb.append("\n \n").append(e.getDesc()).append(" \n").append(e.getExample());
             i++;
         }
         Element esc = null;
         for (Element ef : desc) if (ef.getName().equalsIgnoreCase(name)) esc = ef;
         return tmp
-                .replace("{DESC}", esc.getDesc())
+                .replace("{DESC}", Objects.requireNonNull(esc).getDesc())
                 .replace("{CONTENT}", sb.toString())
                 ;
     }
@@ -238,8 +233,8 @@ public class Documentation {
         try {
             file.getParentFile().mkdirs();
             FileWriter fw = new FileWriter(file);
-            StringBuilder sb = new StringBuilder("");
-            for (String s : t) sb.append(s + "\n");
+            StringBuilder sb = new StringBuilder();
+            for (String s : t) sb.append(s).append("\n");
             fw.write(sb.toString());
             fw.close();
         } catch (IOException io) {

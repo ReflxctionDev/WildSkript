@@ -10,8 +10,7 @@ import org.bukkit.event.Event;
 public class ExprAllowNether extends SimpleExpression<Boolean> {
 
     protected Boolean[] get(Event event) {
-        Boolean allow = Bukkit.getAllowNether();
-        return new Boolean[]{allow};
+        return new Boolean[]{Bukkit.getAllowNether()};
     }
 
     public boolean isSingle() {

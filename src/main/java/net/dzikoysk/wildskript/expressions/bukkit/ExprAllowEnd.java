@@ -12,8 +12,7 @@ import org.bukkit.event.Event;
 public class ExprAllowEnd extends SimpleExpression<Boolean> {
 
     protected Boolean[] get(Event event) {
-        Boolean allow = Bukkit.getAllowEnd();
-        return new Boolean[]{allow};
+        return new Boolean[]{Bukkit.getAllowEnd()};
     }
 
     public boolean isSingle() {

@@ -14,9 +14,9 @@ public class EffPut extends Effect {
     private Expression<Object> value;
 
     protected void execute(Event event) {
-        String name = (String) this.name.getSingle(event);
-        Object key = (Object) this.key.getSingle(event);
-        Object value = (Object) this.value.getSingle(event);
+        String name = this.name.getSingle(event);
+        Object key = this.key.getSingle(event);
+        Object value = this.value.getSingle(event);
         if (name == null || key == null || value == null) return;
         SkriptHashMap.get(name).getHashMap().put(key, value);
     }

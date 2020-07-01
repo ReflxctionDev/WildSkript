@@ -18,8 +18,8 @@ public class EffSet extends Effect {
 
         String id = this.id.getSingle(event);
         String s = this.s.getSingle(event);
-        Integer i = this.i.getSingle(event).intValue();
-        if (id == null || s == null || i == null) return;
+        int i = this.i.getSingle(event).intValue();
+        if (id == null || s == null) return;
 
         Scores.set(Scores.get(Objectives.get(id, "dummy"), s), i);
     }

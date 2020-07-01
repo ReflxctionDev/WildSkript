@@ -22,7 +22,7 @@ public class ExprPing extends SimpleExpression<Integer> {
             Class<?> craftPlayer = Class.forName("org.bukkit.craftbukkit." + version + ".entity.CraftPlayer");
             Object cp = craftPlayer.cast(p);
             Object handle = craftPlayer.getMethod("getHandle").invoke(cp);
-            Integer ping = (int) handle.getClass().getField("ping").get(handle);
+            int ping = (int) handle.getClass().getField("ping").get(handle);
             return new Integer[]{ping};
         } catch (Exception e) {
             e.printStackTrace();

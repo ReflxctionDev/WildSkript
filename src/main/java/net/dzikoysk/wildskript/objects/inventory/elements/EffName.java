@@ -14,8 +14,8 @@ public class EffName extends Effect {
 
     protected void execute(Event event) {
 
-        String id = (String) this.id.getSingle(event);
-        String name = (String) this.name.getSingle(event);
+        String id = this.id.getSingle(event);
+        String name = this.name.getSingle(event);
         if (id == null || name == null) return;
 
         Inventories.get(id).setName(name);

@@ -14,7 +14,7 @@ public class EffDelete extends Effect {
     private Expression<String> file;
 
     protected void execute(Event event) {
-        String f = (String) this.file.getSingle(event);
+        String f = this.file.getSingle(event);
         if (f == null) return;
         File file = new File(f.replaceAll("/", Matcher.quoteReplacement(File.separator)));
         file.delete();

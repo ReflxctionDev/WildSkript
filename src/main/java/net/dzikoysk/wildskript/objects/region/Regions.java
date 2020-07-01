@@ -6,6 +6,7 @@ import org.bukkit.World;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Regions {
 
@@ -31,7 +32,7 @@ public class Regions {
     public Regions(String id, Location loc, int size) {
         this.id = id;
         this.world = loc.getWorld();
-        this.height = this.world.getMaxHeight();
+        this.height = Objects.requireNonNull(this.world).getMaxHeight();
         this.size = size;
         this.center = loc;
         regions.add(this);
@@ -41,7 +42,7 @@ public class Regions {
     public Regions(String id, Location loc1, Location loc2) {
         this.id = id;
         this.world = loc1.getWorld();
-        this.height = this.world.getMaxHeight();
+        this.height = Objects.requireNonNull(this.world).getMaxHeight();
         this.l = loc1;
         this.p = loc2;
         regions.add(this);
@@ -115,9 +116,7 @@ public class Regions {
         this.update();
         if (loc.getBlockX() > this.getLowerX() && loc.getBlockX() < this.getUpperX()) {
             if (loc.getBlockY() > this.getLowerY() && loc.getBlockY() < this.getUpperY()) {
-                if (loc.getBlockZ() > this.getLowerZ() && loc.getBlockZ() < this.getUpperZ()) {
-                    return true;
-                }
+                return loc.getBlockZ() > this.getLowerZ() && loc.getBlockZ() < this.getUpperZ();
             }
         }
         return false;

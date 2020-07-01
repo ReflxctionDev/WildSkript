@@ -16,12 +16,12 @@ public class ExprBackup extends SimpleExpression<String> {
         if (id == null) return null;
         String[][] backup = TabUtils.get(id).getRows().clone();
         if (backup[1].length < 60 || backup[0].length < 60 || backup[2].length < 60) return null;
-        StringBuilder res = new StringBuilder("");
+        StringBuilder res = new StringBuilder();
         for (int i = 0; i < 60; i++) {
             if (backup[0][i] == null || backup[0][i].isEmpty()) backup[0][i] = "<EMPTY>";
             if (backup[2][i] == null || backup[2][i].isEmpty()) backup[2][i] = "<EMPTY>";
             if (i != 0) res.append(";;;");
-            res.append(backup[0][i] + ";;" + backup[1][i] + ";;" + backup[2][i]);
+            res.append(backup[0][i]).append(";;").append(backup[1][i]).append(";;").append(backup[2][i]);
         }
         return new String[]{res.toString()};
     }

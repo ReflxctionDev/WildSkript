@@ -30,7 +30,7 @@ public class ExprArgument extends SimpleExpression<Object> {
         return true;
     }
 
-    public Class<? extends Object> getReturnType() {
+    public Class<?> getReturnType() {
         return Object.class;
     }
 

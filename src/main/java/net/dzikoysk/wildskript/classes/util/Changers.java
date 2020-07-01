@@ -11,7 +11,7 @@ public class Changers {
     public static final Changer<Age> age = new Changer<Age>() {
         public Class<?>[] acceptChange(Changer.ChangeMode mode) {
             if (mode == Changer.ChangeMode.SET)
-                return (Class[]) CollectionUtils.array(new Class[]{Age.class});
+                return (Class<?>[]) CollectionUtils.array(new Class[]{Age.class});
             return null;
         }
 

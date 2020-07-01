@@ -2,11 +2,13 @@ package net.dzikoysk.wildskript.events;
 
 import net.dzikoysk.wildskript.util.data.Data;
 import org.bukkit.Bukkit;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.server.ServerListPingEvent;
 
 public class ServerPing implements Listener {
 
+    @EventHandler
     public void onServerListPing(ServerListPingEvent e) {
         if (Data.motd != null) e.setMotd(Data.motd);
         if (Data.fakeMaxPlayers != null) e.setMaxPlayers(Data.fakeMaxPlayers);

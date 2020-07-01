@@ -8,6 +8,7 @@ import org.bukkit.event.Event;
 
 import java.io.File;
 import java.io.RandomAccessFile;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 
 public class EffLine extends Effect {
@@ -22,10 +23,10 @@ public class EffLine extends Effect {
         try {
             RandomAccessFile x = new RandomAccessFile(f.replaceAll("/", Matcher.quoteReplacement(File.separator)), "rw");
             x.seek(x.length());
-            x.write(v.getBytes("UTF-8"));
+            x.write(v.getBytes(StandardCharsets.UTF_8));
             x.write("\r\n".getBytes());
             x.close();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 

@@ -14,8 +14,8 @@ public class ExprExecutor extends SimpleExpression<String> {
 
     protected String[] get(Event event) {
 
-        String name = (String) this.name.getSingle(event);
-        int i = (int) this.slot.getSingle(event);
+        String name = this.name.getSingle(event);
+        int i = this.slot.getSingle(event);
         if (name == null) return null;
 
         String exc = Inventories.get(name).getLore(i);

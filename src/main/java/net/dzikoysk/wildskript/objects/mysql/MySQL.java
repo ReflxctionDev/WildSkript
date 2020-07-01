@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MySQL {
 
@@ -79,7 +80,7 @@ public class MySQL {
         }
         ResultSet ret = null;
         try {
-            ret = s.executeQuery(query);
+            ret = Objects.requireNonNull(s).executeQuery(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -4,6 +4,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
+import java.util.Objects;
+
 public class Scoreboards {
 
     public static ScoreboardManager manager;
@@ -11,7 +13,7 @@ public class Scoreboards {
 
     static {
         manager = Bukkit.getScoreboardManager();
-        sb = manager.getNewScoreboard();
+        sb = Objects.requireNonNull(manager).getNewScoreboard();
     }
 
     public static ScoreboardManager getScoreboardManager() {

@@ -16,7 +16,7 @@ public class EffFile extends Effect {
     private Expression<String> f;
 
     protected void execute(Event event) {
-        String d = (String) this.f.getSingle(event);
+        String d = this.f.getSingle(event);
         if (f == null) return;
         File file = new File(d.replaceAll("/", Matcher.quoteReplacement(File.separator)));
         if (file.exists()) return;

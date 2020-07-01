@@ -17,11 +17,9 @@ public class CondIsIn extends Condition {
         Location loc = this.location.getSingle(event);
 
         if (RegionsUtils.isIn(loc)) {
-            if (isNegated()) return false;
-            return true;
+            return !isNegated();
         }
-        if (isNegated()) return true;
-        return false;
+        return isNegated();
     }
 
     public String toString(Event event, boolean b) {

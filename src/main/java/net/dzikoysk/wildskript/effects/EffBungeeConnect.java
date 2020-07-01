@@ -30,7 +30,7 @@ public class EffBungeeConnect extends Effect {
         try {
             out.writeUTF("Connect");
             out.writeUTF(srv);
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
         p.sendPluginMessage(WildSkript.getInstance(), "BungeeCord", b.toByteArray());
     }

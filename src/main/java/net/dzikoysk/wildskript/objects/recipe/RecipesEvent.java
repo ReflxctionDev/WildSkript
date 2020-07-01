@@ -7,6 +7,8 @@ import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.Objects;
+
 public class RecipesEvent implements Listener {
 
     @EventHandler
@@ -23,7 +25,7 @@ public class RecipesEvent implements Listener {
                     continue;
                 } else if (req[i] == null) {
                     if (in[i].getType() == Material.AIR) continue;
-                } else if (in[i].equals(req[i])) continue;
+                } else if (Objects.requireNonNull(in[i]).equals(req[i])) continue;
                 bad = true;
                 break;
             }

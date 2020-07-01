@@ -15,9 +15,9 @@ public class EffExecutor extends Effect {
 
     protected void execute(Event event) {
 
-        String name = (String) this.name.getSingle(event);
-        Number slot = (Number) this.slot.getSingle(event);
-        String exc = (String) this.exc.getSingle(event);
+        String name = this.name.getSingle(event);
+        Number slot = this.slot.getSingle(event);
+        String exc = this.exc.getSingle(event);
         if (name == null || slot == null || exc == null) return;
 
         int i = slot.intValue();

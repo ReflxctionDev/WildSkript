@@ -11,9 +11,11 @@ import net.dzikoysk.wildskript.objects.region.RegionsUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.io.StreamCorruptedException;
+import java.util.Objects;
 
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class RegionClasses {
@@ -27,8 +29,7 @@ public class RegionClasses {
                 .examples("")
                 .since("1.5")
                 .parser(new Parser<Regions>() {
-                    @Nullable
-                    public Regions parse(String s, ParseContext context) {
+                    @NotNull public Regions parse(String s, ParseContext context) {
                         return RegionsUtils.get(s);
                     }
 
@@ -44,16 +45,12 @@ public class RegionClasses {
                         String p = toS(r.getP());
                         String w = r.getWorld().getName();
                         if (id == null) return null;
-                        if (c == null) c = "";
-                        if (l == null) l = "";
-                        if (p == null) p = "";
-                        if (w == null) w = "";
-                        b.append(id + ","); // ID = 0
-                        b.append(c + ","); // Center = 1
-                        b.append(r.getSize() + ","); // Size = 2
-                        b.append(l + ","); // L = 3
-                        b.append(p + ","); // P = 4
-                        b.append(w + ","); // World = 5
+                        b.append(id).append(","); // ID = 0
+                        b.append(c).append(","); // Center = 1
+                        b.append(r.getSize()).append(","); // Size = 2
+                        b.append(l).append(","); // L = 3
+                        b.append(p).append(","); // P = 4
+                        b.append(w).append(","); // World = 5
                         return b.toString();
                     }
 
@@ -65,8 +62,7 @@ public class RegionClasses {
                         return r.getID();
                     }
                 }).serializer(new Serializer<Regions>() {
-                    @Override
-                    @Nullable
+                    @NotNull @Override
                     public Fields serialize(Regions r) {
                         Fields f = new Fields();
                         String id = r.getID();
@@ -103,7 +99,6 @@ public class RegionClasses {
                         if (l != null) r.setL(l);
                         if (p != null) r.setP(p);
                         if (w != null) r.setWorld(w);
-                        if (r == null) throw new StreamCorruptedException();
                         return r;
                     }
 
@@ -112,8 +107,7 @@ public class RegionClasses {
                         return true;
                     }
 
-                    @Override
-                    public boolean canBeInstantiated(final Class<? extends Regions> c) {
+                    @Override protected boolean canBeInstantiated() {
                         return false;
                     }
 
@@ -128,12 +122,12 @@ public class RegionClasses {
                         Location p = null;
                         World w = null;
                         if (!(t[1]).equals("")) c = fromS(t[1]);
-                        if (!(t[2]).equals("")) s = Integer.valueOf(t[2]);
+                        if (!(t[2]).equals("")) s = Integer.parseInt(t[2]);
                         if (!(t[3]).equals("")) l = fromS(t[3]);
                         if (!(t[4]).equals("")) p = fromS(t[4]);
                         if (!(t[5]).equals("")) w = Bukkit.getWorld(t[5]);
 
-                        region.setCenter(c);
+                        region.setCenter(Objects.requireNonNull(c));
                         region.setSize(s);
                         region.setL(l);
                         region.setP(p);
@@ -144,12 +138,10 @@ public class RegionClasses {
     }
 
     public static String toS(Location loc) {
-        StringBuilder b = new StringBuilder("");
-        b.append(loc.getBlockX() + ";");
-        b.append(loc.getBlockY() + ";");
-        b.append(loc.getBlockZ() + ";");
-        b.append(loc.getWorld());
-        return b.toString();
+        return "" + loc.getBlockX() + ";" +
+                loc.getBlockY() + ";" +
+                loc.getBlockZ() + ";" +
+                loc.getWorld();
     }
 
     public static Location fromS(String s) {

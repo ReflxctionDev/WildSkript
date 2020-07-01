@@ -32,7 +32,7 @@ public class EffDownload extends Effect {
             File file = new File(f);
             try {
                 downloadFile(u, file);
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         }
     }

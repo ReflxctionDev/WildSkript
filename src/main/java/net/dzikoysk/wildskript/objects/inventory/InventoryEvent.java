@@ -19,7 +19,7 @@ public class InventoryEvent implements Listener {
         Inventory inventory = event.getInventory();
         if (inventory instanceof CraftingInventory) return;
 
-        String name = inventory.getName();
+        String name = event.getView().getTitle();
 
         if (!Inventories.nameExists(name)) return;
         Inventories inv = Inventories.get(name);

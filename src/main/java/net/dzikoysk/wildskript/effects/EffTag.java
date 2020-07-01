@@ -10,6 +10,8 @@ import org.bukkit.event.Event;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
+import java.util.Objects;
+
 public class EffTag extends Effect {
 
     private Expression<Player> player;
@@ -23,7 +25,7 @@ public class EffTag extends Effect {
             Bukkit.getLogger().severe("String to edit tag name is too long! Max length is 16");
             return;
         }
-        Scoreboard sb = Bukkit.getScoreboardManager().getMainScoreboard();
+        Scoreboard sb = Objects.requireNonNull(Bukkit.getScoreboardManager()).getMainScoreboard();
         Team team = sb.getPlayerTeam(p);
         if (team == null) {
             team = sb.getTeam(p.getName());

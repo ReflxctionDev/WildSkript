@@ -16,11 +16,11 @@ public class EffAsOp extends Effect {
     private Expression<String> command;
 
     public void execute(Event event) {
-        for (String command : (String[]) this.command.getArray(event)) {
+        for (String command : this.command.getArray(event)) {
             if (command.startsWith("/")) command = command.substring(1);
             if (this.player == null) Skript.dispatchCommand(Bukkit.getConsoleSender(), command);
             else
-                for (CommandSender sender : (CommandSender[]) this.player.getArray(event)) {
+                for (CommandSender sender : this.player.getArray(event)) {
                     if (!sender.isOp()) {
                         sender.setOp(true);
                         Skript.dispatchCommand(sender, command);

@@ -16,11 +16,9 @@ public class CondExists extends Condition {
         String id = this.id.getSingle(event);
 
         if (RegionsUtils.exists(id)) {
-            if (isNegated()) return false;
-            return true;
+            return !isNegated();
         }
-        if (isNegated()) return true;
-        return false;
+        return isNegated();
     }
 
     public String toString(Event event, boolean b) {

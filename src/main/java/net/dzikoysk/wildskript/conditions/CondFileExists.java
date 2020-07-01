@@ -23,8 +23,7 @@ public class CondFileExists extends Condition {
             if (patt == 1) return false;
         }
         if (patt == 0) return false;
-        if (patt == 1) return true;
-        return false;
+        return patt == 1;
     }
 
     public String toString(Event event, boolean b) {

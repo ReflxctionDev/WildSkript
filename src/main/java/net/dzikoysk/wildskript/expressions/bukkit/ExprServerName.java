@@ -10,7 +10,7 @@ import org.bukkit.event.Event;
 public class ExprServerName extends SimpleExpression<String> {
 
     protected String[] get(Event event) {
-        return new String[]{Bukkit.getServerName()};
+        return new String[]{Bukkit.getServer().getName()};
     }
 
     public boolean isSingle() {

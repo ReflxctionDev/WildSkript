@@ -3,7 +3,7 @@ package net.dzikoysk.wildskript.collections.functions;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class FunctionEvent extends Event {
 

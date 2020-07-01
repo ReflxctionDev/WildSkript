@@ -75,17 +75,6 @@ public class Expressions {
                         "%entity% size"
                 }), ExprSlimeSize.class, Integer.class);
 
-		/*
-		RegisterManager.registerExpression(new Element(Type.EXPRESSION)
-		.name("Age")
-		.version("1.5")
-		.desc("#IN BUILD")
-		.example("#IN BUILD")
-		.usage(new String[] {
-			"age of %entity%"
-		}), ExprAge.class, Age.class);
-		*/
-
         RegisterManager.registerExpression(new Element(Type.EXPRESSION)
                 .name("Null")
                 .version("1.5")

@@ -57,7 +57,7 @@ public class Element extends Object implements Comparable<Element> {
     }
 
     public Element example(String[] s) {
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < s.length; i++) {
             if (i != 0) sb.append(" \n");
             sb.append(s[i].replace("''", '"' + ""));
@@ -95,7 +95,7 @@ public class Element extends Object implements Comparable<Element> {
     }
 
     public String getUsage() {
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         for (String s : this.usage) {
             sb.append(s);
             sb.append(" \n");

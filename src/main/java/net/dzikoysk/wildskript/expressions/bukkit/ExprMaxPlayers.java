@@ -10,8 +10,7 @@ import org.bukkit.event.Event;
 public class ExprMaxPlayers extends SimpleExpression<Integer> {
 
     protected Integer[] get(Event event) {
-        int max = Bukkit.getMaxPlayers();
-        return new Integer[]{max};
+        return new Integer[]{Bukkit.getMaxPlayers()};
     }
 
     public boolean isSingle() {

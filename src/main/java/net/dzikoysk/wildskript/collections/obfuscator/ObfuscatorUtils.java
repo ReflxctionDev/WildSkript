@@ -2,6 +2,7 @@ package net.dzikoysk.wildskript.collections.obfuscator;
 
 import java.io.*;
 import java.util.Enumeration;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.zip.ZipEntry;
@@ -39,7 +40,7 @@ public class ObfuscatorUtils {
                 ZipEntry entry = entries.nextElement();
                 is = zipFile.getInputStream(entry);
             }
-            code = new Scanner(is, "UTF-8").useDelimiter("\\A").next();
+            code = new Scanner(Objects.requireNonNull(is, "InputStream is null!"), "UTF-8").useDelimiter("\\A").next();
             is.close();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -48,7 +49,7 @@ public class ObfuscatorUtils {
     }
 
     public static String content(File file) {
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         try {
             if (!file.exists()) {
                 file.getParentFile().mkdirs();
@@ -69,10 +70,10 @@ public class ObfuscatorUtils {
     }
 
     public static String randomDir() {
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         int[] is = new int[10];
         Random r = new Random();
-        for (@SuppressWarnings("unused") int i : is) sb.append((char) (r.nextInt(26) + 'a') + File.separator);
+        for (@SuppressWarnings("unused") int i : is) sb.append((char) (r.nextInt(26) + 'a')).append(File.separator);
         return sb.toString();
     }
 }

@@ -9,7 +9,6 @@ import org.bukkit.event.Event;
 public class UtilComments extends Effect {
 
     protected void execute(Event event) {
-        return;
     }
 
     public String toString(Event event, boolean bool) {

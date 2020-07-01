@@ -62,10 +62,10 @@ public class BossHealthBar {
     private static void sendPacket(Player player, Object packet) {
         try {
             Object nmsPlayer = ReflectionUtils.getHandle(player);
-            Field connectionField = nmsPlayer.getClass().getField("playerConnection");
+            Field connectionField = Objects.requireNonNull(nmsPlayer).getClass().getField("playerConnection");
             Object connection = connectionField.get(nmsPlayer);
             Method sendPacket = ReflectionUtils.getMethod(connection.getClass(), "sendPacket");
-            sendPacket.invoke(connection, packet);
+            Objects.requireNonNull(sendPacket).invoke(connection, packet);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -115,16 +115,16 @@ public class BossHealthBar {
             try {
                 dragon = EntityEnderDragon.getConstructor(ReflectionUtils.getCraftClass("World")).newInstance(world);
 
-                ReflectionUtils.getMethod(EntityEnderDragon, "setLocation", double.class, double.class, double.class, float.class, float.class).invoke(dragon, x, y, z, pitch, yaw);
-                ReflectionUtils.getMethod(EntityEnderDragon, "setInvisible", boolean.class).invoke(dragon, visible);
-                ReflectionUtils.getMethod(EntityEnderDragon, "setCustomName", String.class).invoke(dragon, name);
-                ReflectionUtils.getMethod(EntityEnderDragon, "setHealth", float.class).invoke(dragon, health);
+                Objects.requireNonNull(ReflectionUtils.getMethod(EntityEnderDragon, "setLocation", double.class, double.class, double.class, float.class, float.class)).invoke(dragon, x, y, z, pitch, yaw);
+                Objects.requireNonNull(ReflectionUtils.getMethod(EntityEnderDragon, "setInvisible", boolean.class)).invoke(dragon, visible);
+                Objects.requireNonNull(ReflectionUtils.getMethod(EntityEnderDragon, "setCustomName", String.class)).invoke(dragon, name);
+                Objects.requireNonNull(ReflectionUtils.getMethod(EntityEnderDragon, "setHealth", float.class)).invoke(dragon, health);
 
-                ReflectionUtils.getField(Entity, "motX").set(dragon, xvel);
-                ReflectionUtils.getField(Entity, "motY").set(dragon, yvel);
-                ReflectionUtils.getField(Entity, "motZ").set(dragon, zvel);
+                Objects.requireNonNull(ReflectionUtils.getField(Entity, "motX")).set(dragon, xvel);
+                Objects.requireNonNull(ReflectionUtils.getField(Entity, "motY")).set(dragon, yvel);
+                Objects.requireNonNull(ReflectionUtils.getField(Entity, "motZ")).set(dragon, zvel);
 
-                this.id = (Integer) ReflectionUtils.getMethod(EntityEnderDragon, "getId").invoke(dragon);
+                this.id = (Integer) Objects.requireNonNull(ReflectionUtils.getMethod(EntityEnderDragon, "getId")).invoke(dragon);
 
                 Class<?> packetClass = ReflectionUtils.getCraftClass("PacketPlayOutSpawnEntityLiving");
                 return packetClass.getConstructor(new Class<?>[]{EntityLiving}).newInstance(dragon);
@@ -174,12 +174,12 @@ public class BossHealthBar {
                 Object watcher = DataWatcher.getConstructor(new Class<?>[]{Entity}).newInstance(dragon);
                 Method a = ReflectionUtils.getMethod(DataWatcher, "a", new Class<?>[]{int.class, Object.class});
 
-                a.invoke(watcher, 0, visible ? (byte) 0 : (byte) 0x20);
-                a.invoke(watcher, 6, (Float) health);
-                a.invoke(watcher, 7, (Integer) 0);
-                a.invoke(watcher, 8, (Byte) (byte) 0);
+                Objects.requireNonNull(a).invoke(watcher, 0, visible ? (byte) 0 : (byte) 0x20);
+                a.invoke(watcher, 6, health);
+                a.invoke(watcher, 7, 0);
+                a.invoke(watcher, 8, (byte) 0);
                 a.invoke(watcher, 10, name);
-                a.invoke(watcher, 11, (Byte) (byte) 1);
+                a.invoke(watcher, 11, (byte) 1);
                 return watcher;
             } catch (Exception e) {
                 e.printStackTrace();

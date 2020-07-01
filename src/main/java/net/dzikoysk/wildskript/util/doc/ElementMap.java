@@ -13,13 +13,11 @@ public class ElementMap<K, V> {
     }
 
     public boolean containsKey(String key) {
-        if (content.containsKey(key)) return true;
-        return false;
+        return content.containsKey(key);
     }
 
     public boolean containsValue(List<Element> value) {
-        if (content.containsValue(value)) return true;
-        return false;
+        return content.containsValue(value);
     }
 
     public Set<Entry<String, List<Element>>> entrySet() {
@@ -36,8 +34,7 @@ public class ElementMap<K, V> {
     }
 
     public boolean isEmpty() {
-        if (content.isEmpty()) return true;
-        return false;
+        return content.isEmpty();
     }
 
     public Set<String> keySet() {

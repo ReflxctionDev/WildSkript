@@ -14,7 +14,7 @@ public class EffChange extends Effect {
 
     protected void execute(Event event) {
         String s = this.s.getSingle(event);
-        String n[] = this.l.getArray(event);
+        String[] n = this.l.getArray(event);
         if (s == null || n == null) return;
         Hologram.get(s).change(n);
     }

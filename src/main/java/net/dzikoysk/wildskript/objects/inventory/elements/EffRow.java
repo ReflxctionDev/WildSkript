@@ -20,10 +20,6 @@ public class EffRow extends Effect {
         if (name == null || row == null) return;
         int i = row.intValue();
 
-        if (!(i <= 6 || i >= 1)) {
-            WildSkript.log("[Inventory] Row can be number between 1 and 6!");
-            return;
-        }
         Inventories.get(name).setRow(i);
 
     }

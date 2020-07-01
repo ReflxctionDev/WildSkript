@@ -16,11 +16,11 @@ public class Obfuscator {
         }
 
         String code = ObfuscatorUtils.content(sk);
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder();
         for (char c : code.toCharArray()) {
-            int i = (int) c;
+            int i = c;
             i = i * power;
-            sb.append(i + "-");
+            sb.append(i).append("-");
         }
 
         File tmp = new File("tmp.ws");
@@ -35,10 +35,10 @@ public class Obfuscator {
     public static String load(File file, int power) {
         String pasd = ObfuscatorUtils.unzip(file);
         String[] values = pasd.split("-");
-        StringBuilder code = new StringBuilder("");
+        StringBuilder code = new StringBuilder();
         for (String un : values) {
             if (un == null || un.isEmpty()) continue;
-            int i = Integer.valueOf(un);
+            int i = Integer.parseInt(un);
             i = i / power;
             code.append((char) i);
         }

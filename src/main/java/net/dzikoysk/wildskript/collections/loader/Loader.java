@@ -1,6 +1,7 @@
 package net.dzikoysk.wildskript.collections.loader;
 
 import ch.njol.skript.ScriptLoader;
+import ch.njol.skript.config.Config;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.*;
 
@@ -12,6 +13,7 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.util.Objects;
 import java.util.regex.Matcher;
 
 public class Loader {
@@ -19,9 +21,9 @@ public class Loader {
     private static void loadScript(File f) {
         try {
             Class<?> cs = ScriptLoader.class;
-            Method method = cs.getDeclaredMethod("loadScript", File.class);
+            Method method = cs.getDeclaredMethod("loadScript", Config.class);
             method.setAccessible(true);
-            method.invoke(null, f);
+            method.invoke(null, ScriptLoader.loadStructure(f));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,15 +68,11 @@ public class Loader {
 
         try {
             pm.loadPlugin(file);
-        } catch (UnknownDependencyException e) {
-            return;
-        } catch (InvalidPluginException e) {
-            return;
-        } catch (InvalidDescriptionException e) {
+        } catch (UnknownDependencyException | InvalidPluginException | InvalidDescriptionException e) {
             return;
         }
         String name = file.getName().replace(".jar", "");
         Plugin plugin = pm.getPlugin(name);
-        pm.enablePlugin(plugin);
+        pm.enablePlugin(Objects.requireNonNull(plugin, "Invalid plugin: " + name));
     }
 }
